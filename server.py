@@ -30,16 +30,16 @@ agent = get_agent()
 
 @app.get("/")
 def root():
-    return {"message": "Gemini LangGraph AI Agent API", "status": "running"}
+    return {"message": "LangGraph AI Agent API", "status": "running"}
 
 @app.get("/health")
 def health_check():
-    return {"status": "healthy", "model": "gemini-2.0-flash"}
+    return {"status": "healthy", "model": "DeepSeek v3"}
 
 @app.post("/chat")
 async def chat_endpoint(chat_message: ChatMessage):
     try:
-        # Invoke the Gemini agent
+        # Invoke the agent
         result = agent.invoke({
             "messages": [("human", chat_message.message)]
         })
@@ -59,7 +59,7 @@ async def chat_endpoint(chat_message: ChatMessage):
 async def stream_chat(chat_message: ChatMessage):
     async def generate():
         try:
-            # Stream the Gemini agent response
+            # Stream the agent response
             for chunk in agent.stream(
                 {"messages": [("human", chat_message.message)]}, 
                 stream_mode="values"
